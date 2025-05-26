@@ -1,8 +1,14 @@
 import React from "react";
 import { FaCat } from "react-icons/fa";
 import styles from "./Contact.module.css";
+import { useDispatch } from "react-redux";
+import { deleteContact } from "../../../redux/contactsSlice";
 
-const Contact = ({ data: { id, name, number }, onDelete }) => {
+const Contact = ({ data: { id, name, number }}) => {
+  const dispatch = useDispatch();
+  const handleDelete = () => {
+    dispatch(deleteContact(id));
+  };
   return (
     <div className={styles.contactCard}>
       <FaCat size={30} style={{ color: "#333" }} className={styles.icon} />
@@ -10,7 +16,7 @@ const Contact = ({ data: { id, name, number }, onDelete }) => {
         <p className={styles.name}>{name}</p>
         <p className={styles.number}>{number}</p>
       </div>
-      <button onClick={() => onDelete(id)} className={styles.button}>
+      <button onClick={handleDelete} className={styles.button}>
         Delete
       </button>
     </div>
